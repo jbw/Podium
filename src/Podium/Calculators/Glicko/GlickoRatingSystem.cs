@@ -21,10 +21,19 @@ namespace Podium
 
         public double CalculateNewRating(IPlayer playerRating, IRating opponentRating, double result)
         {
+            var onsetRD = _glickoRatingCalculator.CalculateOnSetDeviation(
+                playerRating.OriginalRatingDeviation,
+                playerRating.TimeSinceLastPlayed,
+                SkillUncertainty
+            );
 
-            var onsetRD = _glickoRatingCalculator.CalculateOnSetDeviation(playerRating.OriginalRatingDeviation, playerRating.TimeSinceLastPlayed, SkillUncertainty);
-
-            return _glickoRatingCalculator.CalculateNewRating(result, playerRating.CurrentRating, opponentRating.CurrentRating, onsetRD, Q);
+            return _glickoRatingCalculator.CalculateNewRating(
+                result,
+                playerRating.CurrentRating,
+                opponentRating.CurrentRating,
+                onsetRD,
+                Q
+            );
         }
     }
 }
