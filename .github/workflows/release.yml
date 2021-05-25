@@ -21,14 +21,14 @@ jobs:
         dotnet-version: 5.0.x
         
     - name: Build and Test
-      run: cd src && ./Build.ps1
+      run: cd src && ../Build.ps1
       shell: pwsh
       
     - name: Push
       env:
         NUGET_URL: https://www.myget.org/F/podium-rating-systems/api/v3/index.json
         NUGET_API_KEY: ${{ secrets.MYGET_CI_API_KEY }}
-      run: cd src & ./Push.ps1
+      run: cd src & ../Push.ps1
       
     - name: Push to NuGet
       env:
