@@ -3,48 +3,49 @@ name: Release
 on:
   push:
     tags:
-    - '*.*.*'
-    
+      - "*.*.*"
+
 jobs:
   build:
     strategy:
       fail-fast: false
-      
+
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
-        
-    - name: Build and Test
-      run: cd src && ./Build.ps1
-      shell: pwsh
-      
-    - name: Push
-      env:
-        NUGET_URL: https://www.myget.org/F/podium-rating-systems/api/v3/index.json
-        NUGET_API_KEY: ${{ secrets.MYGET_CI_API_KEY }}
-      run: cd src && ./Push.ps1
-      
-    - name: Push to NuGet
-      env:
-        NUGET_URL: https://api.nuget.org/v3/index.json
-        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-      run: cd src && ./Push.ps1
-      shell: pwsh
-      
-    - name: Codecov
-      uses: codecov/codecov-action@v1.2.1
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        files: ./src/Podium.UnitTests/**coverage.opencover.xml
-        
-    - name: Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: artifacts
-        path: artifacts/**/*
+      - uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+
+      - name: Build and Test
+        run: cd src && ./Build.ps1
+        shell: pwsh
+
+      - name: Push
+        env:
+          NUGET_URL: https://www.myget.org/F/podium-rating-systems/api/v3/index.json
+          NUGET_API_KEY: ${{ secrets.MYGET_CI_API_KEY }}
+        run: cd src && ./Push.ps1
+        shell: pwsh
+
+      - name: Push to NuGet
+        env:
+          NUGET_URL: https://api.nuget.org/v3/index.json
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: cd src && ./Push.ps1
+        shell: pwsh
+
+      - name: Codecov
+        uses: codecov/codecov-action@v1.2.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./src/Podium.UnitTests/**coverage.opencover.xml
+
+      - name: Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifacts
+          path: artifacts/**/*
