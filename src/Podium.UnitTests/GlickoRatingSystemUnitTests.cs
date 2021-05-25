@@ -25,7 +25,7 @@ namespace Podium.UnitTests
 
             // Then
             double expectedNewRD = 1525.0577450128465d;
-            newRating.ShouldBe(expectedNewRD);
+            newRating.ShouldBe(expectedNewRD, 0.01);
         }
     }
 }

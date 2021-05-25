@@ -25,7 +25,7 @@ namespace Podium.UnitTests
             // Then
             double expectedRD = 73.48469228349535;
 
-            RD.ShouldBe(expectedRD);
+            RD.ShouldBe(expectedRD, 0.01);
         }
 
 
@@ -44,7 +44,7 @@ namespace Podium.UnitTests
             // Then
             double expectedWeight = 0.9823483039494204;
 
-            weight.ShouldBe(expectedWeight);
+            weight.ShouldBe(expectedWeight, 0.01);
         }
 
         [Fact]
@@ -62,7 +62,7 @@ namespace Podium.UnitTests
 
             // Then
             double expectedScore = 0.17226673505438217;
-            score.ShouldBe(expectedScore);
+            score.ShouldBe(expectedScore, 0.01);
         }
 
         [Fact]
@@ -81,7 +81,7 @@ namespace Podium.UnitTests
 
             // Then
             double expectedNewRD = 72.61142990453034;
-            newRD.ShouldBe(expectedNewRD);
+            newRD.ShouldBe(expectedNewRD, 0.01);
         }
 
         [Fact]
