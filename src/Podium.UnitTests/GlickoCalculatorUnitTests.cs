@@ -77,7 +77,7 @@ namespace Podium.UnitTests
             IGlickoRatingCalculator glickoCalculator = new GlickoRatingCalculator();
 
             // When
-            var newRD = glickoCalculator.CalculateNewRatingDeviation(RD, weighting, fractionalScore, q);
+            var newRD = glickoCalculator.CalculateNewRatingDeviation(RD, weighting, q, fractionalScore);
 
             // Then
             double expectedNewRD = 72.61142990453034;
@@ -88,35 +88,36 @@ namespace Podium.UnitTests
         public void Calculates_New_Rating()
         {
             // Given
-            double RD = 73;
             double playerRating = 1500;
             double opponentRating = 1780;
+            double playerDeviation = 60;
+            double opponentDeviation = 60;
             double q = Math.Log(10) / 400;
+            double skillUncertainty = 1800;
             double result = GameOutcome.Win;
 
             IGlickoRatingCalculator glickoCalculator = new GlickoRatingCalculator();
 
             // When
-            var rating = glickoCalculator.CalculateNewRating(result, playerRating, opponentRating, RD, q);
+            var rating = glickoCalculator.CalculateNewRating(
+                result, 
+                playerRating, 
+                opponentRating, 
+                playerDeviation, 
+                opponentDeviation, 
+                q, 
+                skillUncertainty
+            );
 
             // Then
             double expectedNewRD = 1524.738;
             rating.ShouldBe(expectedNewRD, 0.01);
         }
 
-        [Fact]
-        public void Calculates_New_Rating_Deviation_For_More_Than_One_Game_Result()
-        {
-            // new G and E calculation for each result
-            // the g2 E(1 - E) for each opponent is totalled and a single d2 
-            // is calculated for the whole period.
-     
-        }
 
         [Fact]
         public void Calculates_New_Rating_For_More_Than_One_Game_Result()
         {
-            // The g (S - E) factor is totalled for each game and a single rpost calculation is performed.
             // Given
             double q = Math.Log(10) / 400;
             float skillUncertainity = 1800;

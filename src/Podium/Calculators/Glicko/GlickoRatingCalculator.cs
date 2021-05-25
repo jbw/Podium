@@ -27,6 +27,44 @@ namespace Podium
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gameOutcome"></param>
+        /// <param name="playerRating"></param>
+        /// <param name="opponentRating"></param>
+        /// <param name="ratingDeviation"></param>
+        /// <param name="q"></param>
+        /// <returns></returns>
+        public double CalculateNewRating(double gameOutcome, double playerRating, double opponentRating, double ratingDeviation, double opponentRatingDeviation, double q, double skillUncertainty)
+        {
+            var gameSet = new GameSet
+            {
+                Player = new PlayerRating
+                {
+                    CurrentRating = playerRating,
+                    OriginalRatingDeviation = ratingDeviation,
+                    TimeSinceLastPlayed = 1
+                },
+                OpponentResults = new List<OpponentResult>
+                {
+                    new OpponentResult
+                    {
+                        Outcome = gameOutcome,
+                        Opponent = new OpponentRating
+                        {
+                            CurrentRating = opponentRating,
+                            OriginalRatingDeviation = opponentRatingDeviation
+                        }
+                    }
+                }
+            };
+
+            return CalculateNewRating(gameSet, q, skillUncertainty);
+
+        }
+
+
+        /// <summary>
         /// Onset RD
         /// </summary>
         /// <param name="ratingDeviation"></param>
@@ -120,23 +158,6 @@ namespace Podium
             return newRD;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="result"></param>
-        /// <param name="playerRating"></param>
-        /// <param name="opponentRating"></param>
-        /// <param name="ratingDeviation"></param>
-        /// <param name="q"></param>
-        /// <returns></returns>
-        public double CalculateNewRating(double result, double playerRating, double opponentRating, double ratingDeviation, double q)
-        {
-            var weight = CalculateWeighting(ratingDeviation, q);
-            var fractionalScore = CalculateExpectedFractionScore(playerRating, opponentRating, weight);
-
-            var newRating = playerRating + q * Math.Pow(ratingDeviation, 2) * weight * (result - fractionalScore);
-            return newRating;
-        }
 
         /// <summary>
         /// 
