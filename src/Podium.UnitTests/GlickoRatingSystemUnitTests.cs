@@ -10,8 +10,7 @@ namespace Podium.UnitTests
         public void Get_New_Rating()
         {
             // Given
-            IGlickoRatingCalculator glickoRatingCalculator = new GlickoRatingCalculator();
-            IRatingSystem ratingSystem = new GlickoRatingSystem(glickoRatingCalculator);
+            IRatingSystem ratingSystem = new GlickoRatingSystem();
             IPlayer player = new PlayerRating();
             player.CurrentRating = 1500;
             player.OriginalRatingDeviation = 60;

@@ -77,7 +77,7 @@ namespace Podium.UnitTests
             IGlickoRatingCalculator glickoCalculator = new GlickoRatingCalculator();
 
             // When
-            var newRD = glickoCalculator.CalculateNewRatingDeviation(RD, q, weighting, fractionalScore);
+            var newRD = glickoCalculator.CalculateNewRatingDeviation(RD, weighting, fractionalScore, q);
 
             // Then
             double expectedNewRD = 72.61142990453034;

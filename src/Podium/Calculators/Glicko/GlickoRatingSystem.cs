@@ -9,9 +9,9 @@ namespace Podium
         private readonly double Q = Math.Log(10) / 400;
         private readonly int SkillUncertainty = 1800;
 
-        public GlickoRatingSystem(IGlickoRatingCalculator glickoRatingCalculator)
+        public GlickoRatingSystem()
         {
-            _glickoRatingCalculator = glickoRatingCalculator;
+            _glickoRatingCalculator = new GlickoRatingCalculator();
         }
 
         public double CalculateNewRating(IList<double> gameResults)
