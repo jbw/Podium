@@ -9,27 +9,26 @@
 .EXAMPLE
   exec { svn info $repository_trunk } "Error executing SVN. Please verify SVN command-line client is installed"
 #>
-function Exec
-{
-    [CmdletBinding()]
-    param(
-        [Parameter(Position=0,Mandatory=1)][scriptblock]$cmd,
-        [Parameter(Position=1,Mandatory=0)][string]$errorMessage = ($msgs.error_bad_command -f $cmd)
-    )
-    & $cmd
-    if ($lastexitcode -ne 0) {
-        throw ("Exec: " + $errorMessage)
-    }
+function Exec {
+  [CmdletBinding()]
+  param(
+    [Parameter(Position = 0, Mandatory = 1)][scriptblock]$cmd,
+    [Parameter(Position = 1, Mandatory = 0)][string]$errorMessage = ($msgs.error_bad_command -f $cmd)
+  )
+  & $cmd
+  if ($lastexitcode -ne 0) {
+    throw ("Exec: " + $errorMessage)
+  }
 }
 
 $artifacts = ".\artifacts"
 
-if(Test-Path $artifacts) { Remove-Item $artifacts -Force -Recurse }
+if (Test-Path $artifacts) { Remove-Item $artifacts -Force -Recurse }
 
 exec { & dotnet clean -c Release }
 
 exec { & dotnet build -c Release }
 
-exec { & dotnet test -c Release -r $artifacts --no-build -l trx --verbosity=normal /p:CollectCoverage=true /p:CoverletOutputFormat=OpenCover  }
+exec { & dotnet test -c Release -r $artifacts --no-build -l trx --verbosity=normal /p:CollectCoverage=true /p:CoverletOutputFormat=OpenCover }
 
 exec { & dotnet pack Podium\Podium.csproj -c Release -o $artifacts --no-build }
