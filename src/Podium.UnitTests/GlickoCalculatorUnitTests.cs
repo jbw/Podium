@@ -110,7 +110,7 @@ namespace Podium.UnitTests
             // new G and E calculation for each result
             // the g2 E(1 - E) for each opponent is totalled and a single d2 
             // is calculated for the whole period.
-            throw new NotImplementedException();
+     
         }
 
         [Fact]
