@@ -35,6 +35,7 @@ jobs:
         NUGET_URL: https://api.nuget.org/v3/index.json
         NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
       run: cd src && ./Push.ps1
+      shell: pwsh
       
     - name: Codecov
       uses: codecov/codecov-action@v1.2.1
