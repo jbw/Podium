@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <Authors>JBW</Authors>
+    <Description>Collection of rating system algorithms such as Glicko-1</Description>
+    <Version>0.1.0</Version>
+    <PackageTags>glicko, rating system</PackageTags>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>
