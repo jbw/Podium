@@ -9,30 +9,26 @@ namespace Podium
         private readonly double Q = Math.Log(10) / 400;
         private readonly int SkillUncertainty = 1800;
 
-        public GlickoRatingSystem(IGlickoRatingCalculator glickoRatingCalculator)
+        public GlickoRatingSystem()
         {
-            _glickoRatingCalculator = glickoRatingCalculator;
+            _glickoRatingCalculator = new GlickoRatingCalculator();
         }
 
-        public double CalculateNewRating(IList<double> gameResults)
+        public double CalculateNewRating(GameSet gameSet)
         {
-            throw new NotImplementedException();
+            return _glickoRatingCalculator.CalculateNewRating(gameSet, Q, SkillUncertainty);
         }
 
         public double CalculateNewRating(IPlayer playerRating, IRating opponentRating, double result)
         {
-            var onsetRD = _glickoRatingCalculator.CalculateOnSetDeviation(
-                playerRating.OriginalRatingDeviation,
-                playerRating.TimeSinceLastPlayed,
-                SkillUncertainty
-            );
-
             return _glickoRatingCalculator.CalculateNewRating(
                 result,
                 playerRating.CurrentRating,
                 opponentRating.CurrentRating,
-                onsetRD,
-                Q
+                playerRating.OriginalRatingDeviation,
+                opponentRating.OriginalRatingDeviation,
+                Q,
+                SkillUncertainty
             );
         }
     }
