@@ -8,6 +8,8 @@
         public double CalculateE(double g, double opponentMu, double playerMu);
         public double CalculateG2E(double phi, double e);
         public double CalculateGsE(double phi, double e, double outcome);
+        public double CalculateNu(double g2ESum);
+        public double CalculateDelta(double gsESum, double nu);
     }
 
 }

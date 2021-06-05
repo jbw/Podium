@@ -57,5 +57,16 @@ namespace Podium.RatingSystem.Glicko2
 
             return GsE;
         }
+
+        public double CalculateNu(double g2ESum)
+        {
+            return 1 / g2ESum;
+        }
+
+        public double CalculateDelta(double gsESum, double nu)
+        {
+            return nu * gsESum;
+        }
+    
     }
 }

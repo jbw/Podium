@@ -85,9 +85,9 @@ namespace Podium.UnitTests
             // Given
             double E = 0.091373481;
             double g = 0.9685;
-
             IGlicko2RatingCalculator glickoCalculator = new Glicko2RatingCalculator();
 
+            // When
             var G2E = glickoCalculator.CalculateG2E(g, E);
 
             // Then
@@ -103,14 +103,45 @@ namespace Podium.UnitTests
             double E = 0.091373481;
             double g = 0.9685;
             double outcome = GameOutcome.Win;
-
             IGlicko2RatingCalculator glickoCalculator = new Glicko2RatingCalculator();
 
+            // When
             var GsE = glickoCalculator.CalculateGsE(g, E, outcome);
 
             // Then
             double expectedGsE = 0.8800138;
             GsE.ShouldBe(expectedGsE, 0.01);
+        }
+
+        [Fact]
+        public void Calculates_Nu()
+        {
+            // Given
+            double g2ESum = 0.077877;
+            IGlicko2RatingCalculator glickoCalculator = new Glicko2RatingCalculator();
+
+            // When
+            var nu = glickoCalculator.CalculateNu(g2ESum);
+
+            // Then
+            double expectedNu = 12.84062;
+            nu.ShouldBe(expectedNu, 0.01);
+        }
+
+        [Fact]
+        public void Calculates_Delta()
+        {
+            // Given
+            double GsESum = 0.8800138;
+            double nu = 12.84062;
+            IGlicko2RatingCalculator glickoCalculator = new Glicko2RatingCalculator();
+
+            // When
+            var delta = glickoCalculator.CalculateDelta(GsESum, nu);
+
+            // Then
+            double expectedDelta = 11.2999;
+            delta.ShouldBe(expectedDelta, 0.01);
         }
     }
 }
