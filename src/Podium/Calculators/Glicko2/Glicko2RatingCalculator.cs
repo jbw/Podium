@@ -5,11 +5,6 @@ namespace Podium.RatingSystem.Glicko2
 {
     public class Glicko2RatingCalculator : IGlicko2RatingCalculator
     {
-        public double CalculateE(double phi)
-        {
-            throw new NotImplementedException();
-        }
-
         public double CalculatePhi(double opponentRD, double factor)
         {
             return opponentRD / factor;
@@ -22,11 +17,6 @@ namespace Podium.RatingSystem.Glicko2
             g = Math.Pow(g, -0.5);
 
             return g;
-        }
-
-        public double CalculateG2E(double phi)
-        {
-            throw new NotImplementedException();
         }
 
         public double CalculateMu(double opponentRating, double offset, double factor)
